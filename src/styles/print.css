@@ -1,0 +1,92 @@
+/* Печать: чистый A4 с содержимым CV. Герой, навигация и курсор
+   скрывается, печатается CvDocument. */
+
+@page { size: A4; margin: 9mm 11mm; }
+
+@media print {
+  :root {
+    --bg: #FFFFFF;
+    --bg-2: #FFFFFF;
+    --fg: #000000;
+    --muted: #444444;
+    --border: #000000;
+    --line: #BBBBBB;
+    --accent: #8A8C00;
+    --on-accent: #FFFFFF;
+  }
+
+  html, body {
+    background: #FFFFFF !important;
+    color: #000 !important;
+  }
+  body { font-size: 9pt; line-height: 1.36; }
+
+  .no-print,
+  .nav,
+  .hero,
+  .hero__tiles,
+  .frog,
+  .skip {
+    display: none !important;
+  }
+
+  .cvsheet { max-width: none; margin: 0; padding: 0; }
+
+  .cvdoc__name { font-size: 21pt; }
+  .cvdoc__id { padding-bottom: 9px; }
+  .cvdoc__role { font-size: 10pt; margin-top: 6px; }
+  .cvdoc__tag { font-size: 8.6pt; max-width: none; margin-top: 7px; }
+  .cvdoc__contacts { margin-top: 8px; font-size: 8.4pt; gap: 2px 14px; }
+
+  .cvdoc__stats { margin: 6px 0; gap: 0; border-color: #BBB; grid-template-columns: repeat(4, 1fr); }
+  .cvdoc__stat { padding: 4px 8px; border-right: 1px solid #BBB; }
+  .cvdoc__stat:last-child { border-right: 0; }
+  .cvdoc__statn { font-size: 10.5pt; }
+  .cvdoc__statl { font-size: 7pt; margin-top: 2px; }
+
+  .cvdoc__sec + .cvdoc__sec { margin-top: 8px; }
+  .cvdoc__h { font-size: 7.6pt; margin-bottom: 5px; padding-bottom: 4px; }
+
+  .cvdoc__links { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cvdoc__links a { padding: 5px 8px; border: 1px solid #000; }
+  .cvdoc__links b { font-size: 9pt; }
+  .cvdoc__linkd { font-size: 7.6pt; margin-top: 3px; }
+  .cvdoc__linkgo { padding-top: 5px; font-size: 7.4pt; color: #333; }
+
+  .cvdoc__skills { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .cvdoc__skillh { font-size: 9pt; margin-bottom: 4px; }
+  .cvdoc__tags { gap: 3px; }
+  .cvdoc__tags li { font-size: 7.8pt; padding: 1px 5px; }
+
+  .cvdoc__pipe { border-color: #BBB; grid-template-columns: repeat(4, 1fr); }
+  .cvdoc__pipe li { padding: 2px 7px; }
+  .cvdoc__pnum { font-size: 7pt; }
+  .cvdoc__ptitle { font-size: 8.4pt; margin-top: 2px; }
+  .cvdoc__pdesc { font-size: 7.4pt; margin-top: 1px; line-height: 1.3; }
+
+  .cvdoc__cols { grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: 22px; }
+  .cvdoc__job + .cvdoc__job { margin-top: 8px; padding-top: 8px; }
+  .cvdoc__co { font-size: 11pt; }
+  .cvdoc__when, .cvdoc__jrole { font-size: 8.4pt; }
+  .cvdoc__jrole { margin: 1px 0 5px; }
+  .cvdoc__bullets li { font-size: 8.6pt; margin-top: 2px; padding-left: 12px; }
+  .cvdoc__bullets li::before { width: 4px; height: 4px; top: 6px; left: 0; background: #000; }
+
+  .cvdoc__facts { font-size: 8.2pt; }
+  .cvdoc__facts div { padding: 4px 0; }
+
+  /* Ничего не рвём посередине */
+  .cvdoc__id,
+  .cvdoc__stats,
+  .cvdoc__stat,
+  .cvdoc__job,
+  .cvdoc__sec,
+  .cvdoc__pipe li,
+  .cvdoc__links li,
+  .cvdoc__links a {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a { text-decoration: none; color: #000 !important; }
+}
