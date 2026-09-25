@@ -3,6 +3,8 @@ import { identity, ui } from '../data/cv'
 import { useT } from '../lib/lang'
 import LanguageSwitch from './LanguageSwitch'
 
+const BASE = import.meta.env.BASE_URL
+
 export default function Navigation() {
   const t = useT()
   const reduce = useReducedMotion() ?? false
@@ -20,7 +22,7 @@ export default function Navigation() {
         onClick={() => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })}
         aria-label={t(identity.name)}
       >
-        <span className="nav__mark" aria-hidden="true">KR</span>
+        <img className="nav__logo" src={`${BASE}images/frog-cursor.png`} alt="" aria-hidden="true" draggable={false} />
         <span className="nav__name">{t(identity.name)}</span>
       </button>
       <div className="nav__right">

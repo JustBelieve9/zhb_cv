@@ -32,7 +32,12 @@
 
   .cvsheet { max-width: none; margin: 0; padding: 0; }
 
-  .cvdoc__name { font-size: 21pt; }
+  .cvdoc__name {
+    display: block;
+    font: 800 21pt/0.98 var(--f-disp);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
   .cvdoc__id { padding-bottom: 9px; }
   .cvdoc__role { font-size: 10pt; margin-top: 6px; }
   .cvdoc__tag { font-size: 8.6pt; max-width: none; margin-top: 7px; }

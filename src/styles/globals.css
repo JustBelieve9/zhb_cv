@@ -117,11 +117,8 @@ html.frog-active:not(.intro-done) .frog { transition: none; }
   background: none; border: 0; padding: 6px 4px;
   color: var(--fg); cursor: pointer;
 }
-.nav__mark {
-  width: 30px; height: 30px; flex: none;
-  display: grid; place-items: center;
-  background: var(--accent); color: var(--on-accent);
-  font: 700 12px/1 var(--f-mono);
+.nav__logo {
+  width: 34px; height: auto; flex: none;
 }
 .nav__name {
   font: 500 12px/1 var(--f-mono);
@@ -159,7 +156,15 @@ html.frog-active:not(.intro-done) .frog { transition: none; }
 }
 
 .hero__head {
-  padding: clamp(40px, 7vh, 84px) var(--pad-x) clamp(24px, 4vh, 40px);
+  position: absolute;
+  left: var(--pad-x);
+  bottom: clamp(14px, 3vw, 30px);
+  z-index: 2;
+  max-width: min(680px, calc(100% - 2 * var(--pad-x)));
+  padding: clamp(14px, 2vw, 24px) clamp(16px, 2.4vw, 30px);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  border-left: 3px solid var(--accent);
 }
 
 .hero__over {
@@ -180,20 +185,20 @@ html.frog-active:not(.intro-done) .frog { transition: none; }
 }
 .hero__roletag { color: var(--muted); }
 .hero__actions {
-  margin-top: clamp(20px, 3vh, 28px);
+  margin-top: clamp(12px, 1.8vh, 20px);
   display: flex; gap: 12px; flex-wrap: wrap;
 }
 
 .hero__stage {
   position: relative;
-  height: clamp(240px, 30vw, 480px);
-  border-top: 1px solid var(--line);
+  /* честные 16:9: на широких экранах без кропа, на узких — кроп по краям */
+  height: clamp(300px, 56.25vw, calc(100svh - 60px));
   border-bottom: 1px solid var(--line);
 }
 
 .reveal {
   position: absolute; inset: 0;
-  --reveal-radius: clamp(150px, 18vw, 300px);
+  --reveal-radius: clamp(195px, 23.5vw, 390px);
   --reveal-x: 50%;
   --reveal-y: 50%;
 }
@@ -243,7 +248,8 @@ html.frog-active:not(.intro-done) .frog { transition: none; }
 
 /* ── CV-документ (наследие cv.css) ──────────────────── */
 .cvdoc__id { border-bottom: 2px solid var(--border); padding-bottom: var(--sp-3); }
-.cvdoc__name { font: 800 clamp(34px, 7vw, 60px)/0.98 var(--f-disp); letter-spacing: -0.02em; }
+/* Имя на экране показывает герой; в CV оно остаётся только для печати. */
+.cvdoc__name { display: none; }
 .cvdoc__role {
   margin-top: 10px;
   font: 500 clamp(15px, 2.4vw, 19px)/1.3 var(--f-mono);

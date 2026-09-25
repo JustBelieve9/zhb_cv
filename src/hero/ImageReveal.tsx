@@ -107,7 +107,7 @@ export default function ImageReveal() {
         src={`${BASE}images/room-day.webp`}
         alt=""
         width={1672}
-        height={470}
+        height={941}
         decoding="async"
         draggable={false}
       />
@@ -116,7 +116,7 @@ export default function ImageReveal() {
         src={`${BASE}images/room-night.webp`}
         alt=""
         width={1672}
-        height={470}
+        height={941}
         decoding="async"
         draggable={false}
       />

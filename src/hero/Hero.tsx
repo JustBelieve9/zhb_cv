@@ -32,48 +32,6 @@ export default function Hero() {
 
   return (
     <section className="hero">
-      <div className="hero__head">
-        <motion.p
-          className="hero__over"
-          initial={intro ? { opacity: 0, y: 10 } : false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.65, duration: 0.4, ease: EASE }}
-        >
-          {t(ui.heroOver)}
-        </motion.p>
-        <motion.h1
-          className="hero__name"
-          initial={intro ? { opacity: 0, y: 18 } : false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.55, ease: EASE }}
-        >
-          {t(identity.name)}
-        </motion.h1>
-        <motion.p
-          className="hero__role"
-          initial={intro ? { opacity: 0, y: 14 } : false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.62, duration: 0.5, ease: EASE }}
-        >
-          {t(identity.role)} <span className="hero__roletag">· {t(identity.roleTag)}</span>
-        </motion.p>
-        <motion.div
-          className="hero__actions"
-          initial={intro ? { opacity: 0, y: 14 } : false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.75, duration: 0.45, ease: EASE }}
-        >
-          <button type="button" className="btn btn--accent" onClick={() => window.print()}>
-            {t(ui.download)}
-          </button>
-          {telegram && (
-            <a className="btn" href={telegram.href} target="_blank" rel="noopener">
-              {t(ui.telegram)} ↗
-            </a>
-          )}
-        </motion.div>
-      </div>
-
       <motion.div
         className="hero__stage"
         initial={intro ? { opacity: 0, scale: 1.06 } : false}
@@ -81,6 +39,28 @@ export default function Hero() {
         transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
       >
         <ImageReveal />
+        <motion.div
+          className="hero__head"
+          initial={intro ? { opacity: 0, y: 24 } : false}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.55, ease: EASE }}
+        >
+          <p className="hero__over">{t(ui.heroOver)}</p>
+          <h1 className="hero__name">{t(identity.name)}</h1>
+          <p className="hero__role">
+            {t(identity.role)} <span className="hero__roletag">· {t(identity.roleTag)}</span>
+          </p>
+          <div className="hero__actions">
+            <button type="button" className="btn btn--accent" onClick={() => window.print()}>
+              {t(ui.download)}
+            </button>
+            {telegram && (
+              <a className="btn" href={telegram.href} target="_blank" rel="noopener">
+                {t(ui.telegram)} ↗
+              </a>
+            )}
+          </div>
+        </motion.div>
       </motion.div>
 
       {intro && (

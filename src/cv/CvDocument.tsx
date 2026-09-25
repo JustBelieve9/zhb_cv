@@ -24,7 +24,8 @@ export default function CvDocument() {
   return (
     <article className="cvdoc">
       <header className="cvdoc__id">
-        <h1 className="cvdoc__name">{t(identity.name)}</h1>
+        {/* Имя видно только в печати: на экране его показывает герой. */}
+        <p className="cvdoc__name">{t(identity.name)}</p>
         <p className="cvdoc__role">
           {t(identity.role)} · {t(identity.roleTag)}
         </p>
