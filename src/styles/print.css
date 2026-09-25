@@ -74,7 +74,7 @@
   .cvdoc__co { font-size: 11pt; }
   .cvdoc__when, .cvdoc__jrole { font-size: 8.4pt; }
   .cvdoc__jrole { margin: 1px 0 5px; }
-  .cvdoc__bullets li { font-size: 8.6pt; margin-top: 2px; padding-left: 12px; }
+  .cvdoc__bullets li { font-size: 8.6pt; margin-top: 2px; padding-left: 12px; line-height: 1.36; }
   .cvdoc__bullets li::before { width: 4px; height: 4px; top: 6px; left: 0; background: #000; }
 
   .cvdoc__facts { font-size: 8.2pt; }
