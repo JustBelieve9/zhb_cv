@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { onFrogFrame } from '../lib/pointer'
 
-const LERP_FINE = 0.16
-const LERP_TOUCH = 0.14
+// Затухание по времени: одинаковое ощущение на любом FPS
+// (при 60 Гц совпадает со старыми коэффициентами 0.16/0.14 за кадр).
+const FINE_TAU = 96 // мс
+const TOUCH_TAU = 110 // мс
 
 const BASE = import.meta.env.BASE_URL
 
@@ -42,7 +44,7 @@ export default function ImageReveal() {
       }
       // Центр следует за лягушкой в её rAF-цикле (см. FrogCursor).
       let started = false
-      const off = onFrogFrame((fx, fy) => {
+      const off = onFrogFrame((fx, fy, dt) => {
         if (!started) {
           started = true
           x = fx
@@ -51,8 +53,9 @@ export default function ImageReveal() {
         rect = el.getBoundingClientRect()
         tx = fx
         ty = fy
-        x += (tx - x) * LERP_FINE
-        y += (ty - y) * LERP_FINE
+        const k = 1 - Math.exp(-dt / FINE_TAU)
+        x += (tx - x) * k
+        y += (ty - y) * k
         apply()
       })
       return off
@@ -71,7 +74,10 @@ export default function ImageReveal() {
     el.addEventListener('touchstart', onTouch, { passive: true })
     el.addEventListener('touchmove', onTouch, { passive: true })
 
+    let lastT = performance.now()
     const tick = (now: number) => {
+      const dt = Math.min(now - lastT, 100)
+      lastT = now
       rect = el.getBoundingClientRect()
       if (!touched) {
         const cx = rect.left + rect.width / 2
@@ -84,8 +90,9 @@ export default function ImageReveal() {
           ty = cy + Math.cos(now / 3100) * rect.height * 0.12
         }
       }
-      x += (tx - x) * LERP_TOUCH
-      y += (ty - y) * LERP_TOUCH
+      const k = 1 - Math.exp(-dt / TOUCH_TAU)
+      x += (tx - x) * k
+      y += (ty - y) * k
       apply()
       raf = requestAnimationFrame(tick)
     }

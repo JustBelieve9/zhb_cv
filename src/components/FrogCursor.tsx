@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { emitFrogFrame, pointer } from '../lib/pointer'
 
-const LERP = 0.22
+// Затухание по времени, а не по кадрам: ощущение скорости одинаковое
+// на 30, 60 и 120 Гц. Константы подобраны так, что при 60 Гц поведение
+// совпадает со старым коэффициентом 0.22/0.18 за кадр.
+const MOVE_TAU = 67 // мс
+const SCALE_TAU = 84 // мс
 const FOCUSABLE = 'a, button, [role="button"], input, textarea, select, label'
 
 const BASE = import.meta.env.BASE_URL
@@ -70,13 +74,18 @@ export default function FrogCursor() {
     window.addEventListener('pointerup', up, { passive: true })
     document.documentElement.addEventListener('pointerleave', leave)
 
-    const tick = () => {
-      fx += (pointer.x - fx) * LERP
-      fy += (pointer.y - fy) * LERP
-      sx += (tsx - sx) * 0.18
-      sy += (tsy - sy) * 0.18
+    let last = performance.now()
+    const tick = (now: number) => {
+      const dt = Math.min(now - last, 100)
+      last = now
+      const kMove = 1 - Math.exp(-dt / MOVE_TAU)
+      const kScale = 1 - Math.exp(-dt / SCALE_TAU)
+      fx += (pointer.x - fx) * kMove
+      fy += (pointer.y - fy) * kMove
+      sx += (tsx - sx) * kScale
+      sy += (tsy - sy) * kScale
       img.style.transform = `translate3d(${fx.toFixed(1)}px, ${fy.toFixed(1)}px, 0) translate(-50%, -50%) scale(${sx.toFixed(3)}, ${sy.toFixed(3)})`
-      emitFrogFrame(fx, fy)
+      emitFrogFrame(fx, fy, dt)
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
